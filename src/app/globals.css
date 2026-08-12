@@ -1,26 +1,71 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ── Base surfaces ── */
+  --color-bg: oklch(0.16 0.03 265); /* deep indigo-black */
+  --color-bg-elevated: oklch(0.2 0.035 265);
+  --color-surface: oklch(1 0 0 / 6%); /* glass fill */
+  --color-surface-hover: oklch(1 0 0 / 10%);
+  --color-border: oklch(1 0 0 / 10%);
+  --color-border-strong: oklch(1 0 0 / 18%);
+
+  /* ── Text ── */
+  --color-text: oklch(0.98 0.005 265); /* near-white */
+  --color-text-muted: oklch(0.72 0.02 265);
+  --color-text-faint: oklch(0.55 0.02 265);
+
+  /* ── Brand gradient stops ── */
+  --color-brand-violet: oklch(0.62 0.2 292);
+  --color-brand-cyan: oklch(0.76 0.13 205);
+  --color-accent: oklch(0.8 0.16 75); /* warm amber */
+
+  /* ── Radius ── */
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  /* ── Fonts (wired in Step 5) ── */
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Global base */
+* {
+  border-color: var(--color-border);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Reusable brand utilities */
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(
+      120deg,
+      var(--color-brand-violet),
+      var(--color-brand-cyan)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass {
+    background: var(--color-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--color-border);
+  }
+
+  .glass-hover {
+    transition:
+      background 0.3s ease,
+      border-color 0.3s ease;
+  }
+  .glass-hover:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-border-strong);
+  }
 }
