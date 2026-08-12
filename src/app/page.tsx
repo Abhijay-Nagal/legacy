@@ -7,7 +7,8 @@ import { useIntroSeen } from "@/lib/useIntroSeen";
 export default function Home() {
   const { seen, markSeen } = useIntroSeen();
 
-  if (seen === null) return <div className="min-h-screen bg-[var(--color-bg)]" />;
+  if (seen === null)
+    return <div className="min-h-screen bg-[var(--color-bg)]" />;
 
   return (
     <>
