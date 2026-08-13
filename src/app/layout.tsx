@@ -8,8 +8,9 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Legacy",
-  description: "A premium AI-powered learning application.",
+  title: "Legacy — AI-Powered Learning",
+  description:
+    "Upload study material and learn faster with AI-powered Q&A, summaries, and flashcards.",
 };
 
 export default function RootLayout({
