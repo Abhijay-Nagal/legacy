@@ -10,7 +10,7 @@ export function Sidebar() {
   const [active, setActive] = useState<string | null>(null);
 
   return (
-    <aside className="glass flex h-full w-60 flex-col gap-8 rounded-2xl p-5">
+    <aside className="glass flex h-full w-full flex-col gap-8 rounded-2xl p-5 md:w-60">
       <Logo />
 
       <nav className="flex flex-col gap-2">

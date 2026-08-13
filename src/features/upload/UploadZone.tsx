@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 export function UploadZone() {
   const [isDragging, setIsDragging] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  // Visual-only drag handling. Real file parsing lands later.
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(true);
@@ -22,9 +22,22 @@ export function UploadZone() {
     setIsDragging(false);
     // TODO(phase-backend): read e.dataTransfer.files here
   };
+  const handleSelect = () => {
+    // TODO(phase-backend): read inputRef.current?.files here
+  };
 
   return (
     <motion.div
+      role="button"
+      tabIndex={0}
+      aria-label="Upload a PDF file"
+      onClick={() => inputRef.current?.click()}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          inputRef.current?.click();
+        }
+      }}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -32,13 +45,21 @@ export function UploadZone() {
       initial="idle"
       animate={isDragging ? "drag" : "idle"}
       className={cn(
-        "group relative flex aspect-square w-full max-w-md cursor-pointer flex-col items-center justify-center gap-5 rounded-3xl border-2 border-dashed p-10 transition-colors",
+        "group relative flex aspect-square w-full max-w-md cursor-pointer flex-col items-center justify-center gap-5 rounded-3xl border-2 border-dashed p-10 transition-colors outline-none",
+        "focus-visible:border-[var(--color-brand-cyan)]",
         isDragging
           ? "border-[var(--color-brand-violet)] bg-[var(--color-surface-hover)]"
           : "border-[var(--color-border-strong)] bg-[var(--color-surface)]"
       )}
     >
-      {/* Glow bloom — intensifies on hover and drag */}
+      <input
+        ref={inputRef}
+        type="file"
+        accept="application/pdf"
+        onChange={handleSelect}
+        className="hidden"
+      />
+
       <motion.div
         aria-hidden
         variants={{
@@ -54,7 +75,6 @@ export function UploadZone() {
         }}
       />
 
-      {/* Plus button */}
       <motion.div
         variants={{
           idle: { scale: 1 },
@@ -72,7 +92,7 @@ export function UploadZone() {
           {isDragging ? "Drop to upload" : "Add PDF File Here"}
         </p>
         <p className="mt-1 text-sm text-[var(--color-text-faint)]">
-          Drag & drop or click to browse
+          Drag &amp; drop or click to browse
         </p>
       </div>
     </motion.div>
