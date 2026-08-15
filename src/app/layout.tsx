@@ -15,11 +15,38 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" className={geist.variable}>
+    <html lang="en" className={geist.variable} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  var stored = localStorage.getItem('legacy_theme');
+                  var theme = stored
+                    ? stored
+                    : (
+                        window.matchMedia(
+                          '(prefers-color-scheme: light)'
+                        ).matches
+                          ? 'light'
+                          : 'dark'
+                      );
+
+                  if (theme === 'light') {
+                    document.documentElement.classList.add('light');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+
       <body>{children}</body>
     </html>
   );

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Logo } from "@/components/ui/Logo";
 import { navItems } from "@/config/nav";
 import { cn } from "@/lib/cn";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function Sidebar() {
   const [active, setActive] = useState<string | null>(null);
@@ -13,7 +14,7 @@ export function Sidebar() {
     <aside className="glass flex h-full w-full flex-col gap-8 rounded-2xl p-5 md:w-60">
       <Logo />
 
-      <nav className="flex flex-col gap-2">
+      <nav className="flex flex-1 flex-col gap-2">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = active === item.id;
@@ -56,6 +57,7 @@ export function Sidebar() {
           );
         })}
       </nav>
+      <ThemeToggle />
     </aside>
   );
 }
