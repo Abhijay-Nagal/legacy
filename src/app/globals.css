@@ -26,6 +26,7 @@
 
   /* ── Fonts (wired in Step 5) ── */
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-display: var(--font-sora), system-ui, sans-serif;
 }
 /* Light theme: re-map the same token names to light values.
    Every component reads these vars, so nothing else changes. */
