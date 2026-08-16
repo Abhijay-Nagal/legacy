@@ -17,7 +17,7 @@ export function useTheme() {
     setTheme(isLight ? "light" : "dark");
 
     // Intentional client-mount flag for hydration-safe theme UI.
-    
+
     setMounted(true);
   }, []);
 
