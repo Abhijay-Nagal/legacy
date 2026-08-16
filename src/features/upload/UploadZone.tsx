@@ -13,15 +13,18 @@ export function UploadZone() {
     e.preventDefault();
     setIsDragging(true);
   };
+
   const handleDragLeave = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
   };
+
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
     // TODO(phase-backend): read e.dataTransfer.files here
   };
+
   const handleSelect = () => {
     // TODO(phase-backend): read inputRef.current?.files here
   };
@@ -60,11 +63,12 @@ export function UploadZone() {
         className="hidden"
       />
 
+      {/* Purple glow: hidden on normal hover, retained during drag */}
       <motion.div
         aria-hidden
         variants={{
           idle: { opacity: 0, scale: 0.8 },
-          hover: { opacity: 0.5, scale: 1 },
+          hover: { opacity: 0, scale: 1 },
           drag: { opacity: 0.8, scale: 1.1 },
         }}
         transition={{ duration: 0.4, ease: "easeOut" }}
@@ -75,6 +79,7 @@ export function UploadZone() {
         }}
       />
 
+      {/* Plus button still scales on hover */}
       <motion.div
         variants={{
           idle: { scale: 1 },
@@ -91,6 +96,7 @@ export function UploadZone() {
         <p className="font-medium text-[var(--color-text)]">
           {isDragging ? "Drop to upload" : "Add PDF File Here"}
         </p>
+
         <p className="mt-1 text-sm text-[var(--color-text-faint)]">
           Drag &amp; drop or click to browse
         </p>

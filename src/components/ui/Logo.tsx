@@ -1,27 +1,14 @@
 import { cn } from "@/lib/cn";
 
-export function Logo({
-  className,
-  showTagline = false,
-}: {
-  className?: string;
-  showTagline?: boolean;
-}) {
+export function Logo({ className }: { className?: string }) {
   return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <LogoMark className="h-10 w-10 shrink-0" />
+    <div className={cn("flex items-end", className)}>
+      {/* Glyph = the "L", flush to EGACY */}
+      <LogoMark className="-mr-1.5 h-9 w-9 shrink-0 translate-y-[0%]" />
 
-      <div className="flex flex-col">
-        <span className="text-xl font-semibold tracking-[0.25em] text-[var(--color-text)]">
-          LEGACY
-        </span>
-
-        {showTagline && (
-          <span className="mt-1 text-[9px] font-medium tracking-[0.22em] whitespace-nowrap text-[var(--color-text-faint)]">
-            LEARN. UNDERSTAND. REMEMBER.
-          </span>
-        )}
-      </div>
+      <span className="font-sans text-2xl font-bold tracking-tight text-[var(--color-text)]">
+        EGACY
+      </span>
     </div>
   );
 }
