@@ -24,29 +24,21 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              (function () {
-                try {
-                  var stored = localStorage.getItem('legacy_theme');
-                  var theme = stored
-                    ? stored
-                    : (
-                        window.matchMedia(
-                          '(prefers-color-scheme: light)'
-                        ).matches
-                          ? 'light'
-                          : 'dark'
-                      );
-
-                  if (theme === 'light') {
-                    document.documentElement.classList.add('light');
-                  }
-                } catch (e) {}
-              })();
-            `,
+          (function () {
+            try {
+              var stored = localStorage.getItem('legacy_theme');
+              var theme = stored ? stored : 'light';
+              if (theme === 'light') {
+                document.documentElement.classList.add('light');
+              } else {
+                document.documentElement.classList.remove('light');
+              }
+            } catch (e) {}
+          })();
+        `,
           }}
         />
       </head>
-
       <body>{children}</body>
     </html>
   );
