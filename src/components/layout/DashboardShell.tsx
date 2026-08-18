@@ -3,19 +3,26 @@
 import { motion } from "motion/react";
 import { Sidebar } from "@/components/layout/Sidebar";
 
-export function DashboardShell({ children }: { children: React.ReactNode }) {
+type Feature = "qa" | "summary" | "flashcard" | null;
+
+export function DashboardShell({
+  children,
+  docId,
+  activeFeature,
+  onSelectFeature,
+}: {
+  children: React.ReactNode;
+  docId: string | null;
+  activeFeature: Feature;
+  onSelectFeature: (f: Feature) => void;
+}) {
   return (
     <motion.div
       initial="hidden"
       animate="show"
       variants={{
         hidden: {},
-        show: {
-          transition: {
-            staggerChildren: 0.12,
-            delayChildren: 0.1,
-          },
-        },
+        show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
       }}
       className="flex min-h-screen flex-col gap-4 p-4 md:flex-row"
     >
@@ -26,7 +33,11 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <Sidebar />
+        <Sidebar
+          docId={docId}
+          activeFeature={activeFeature}
+          onSelectFeature={onSelectFeature}
+        />
       </motion.div>
 
       <motion.main
