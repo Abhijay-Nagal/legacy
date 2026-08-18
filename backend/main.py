@@ -2,18 +2,31 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+import os
+
 import store
 import gemini_client
 
 app = FastAPI(title="Legacy Backend", version="0.1.0")
 
-# CORS — allow the Next.js dev server (Phase 14 will use this)
+# CORS — allow local development and the deployed Vercel frontend
+FRONTEND_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://legacy-five-omega.vercel.app",
+]
+
+frontend_url = os.environ.get("FRONTEND_URL")
+
+if frontend_url:
+    frontend_url = frontend_url.strip().rstrip("/")
+
+    if frontend_url not in FRONTEND_ORIGINS:
+        FRONTEND_ORIGINS.append(frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=FRONTEND_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
