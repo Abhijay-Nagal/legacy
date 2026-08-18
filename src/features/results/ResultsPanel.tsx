@@ -88,7 +88,7 @@ function QAView({ docId }: { docId: string }) {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass whitespace-pre-wrap rounded-xl p-4"
+          className="glass rounded-xl p-4 whitespace-pre-wrap"
         >
           {answer}
         </motion.div>
@@ -128,7 +128,7 @@ function SummaryView({ docId }: { docId: string }) {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass whitespace-pre-wrap rounded-xl p-4"
+          className="glass rounded-xl p-4 whitespace-pre-wrap"
         >
           {summary}
         </motion.div>
@@ -185,10 +185,12 @@ function FlashcardItem({ card, index }: { card: Flashcard; index: number }) {
       onClick={() => setFlipped((f) => !f)}
       className="glass glass-hover min-h-28 rounded-xl p-4 text-left"
     >
-      <p className="text-xs uppercase tracking-wide text-[var(--color-text-faint)]">
+      <p className="text-xs tracking-wide text-[var(--color-text-faint)] uppercase">
         {flipped ? "Answer" : "Question"}
       </p>
-      <p className="mt-1 font-medium">{flipped ? card.answer : card.question}</p>
+      <p className="mt-1 font-medium">
+        {flipped ? card.answer : card.question}
+      </p>
     </motion.button>
   );
 }

@@ -1,5 +1,4 @@
-const BASE =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000";
+const BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000";
 
 export async function uploadPdf(
   file: File
@@ -19,10 +18,7 @@ export async function uploadPdf(
   return res.json();
 }
 
-export async function askQa(
-  docId: string,
-  question: string
-): Promise<string> {
+export async function askQa(docId: string, question: string): Promise<string> {
   const res = await fetch(`${BASE}/qa`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -58,9 +54,7 @@ export type Flashcard = {
   answer: string;
 };
 
-export async function getFlashcards(
-  docId: string
-): Promise<Flashcard[]> {
+export async function getFlashcards(docId: string): Promise<Flashcard[]> {
   const res = await fetch(`${BASE}/flashcards`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -68,9 +62,7 @@ export async function getFlashcards(
   });
 
   if (!res.ok) {
-    throw new Error(
-      (await res.json()).detail ?? "Flashcards failed"
-    );
+    throw new Error((await res.json()).detail ?? "Flashcards failed");
   }
 
   return (await res.json()).flashcards ?? [];

@@ -84,10 +84,7 @@ export function UploadZone({ onUploaded }: UploadZoneProps) {
         }
       }}
       onKeyDown={(e) => {
-        if (
-          !loading &&
-          (e.key === "Enter" || e.key === " ")
-        ) {
+        if (!loading && (e.key === "Enter" || e.key === " ")) {
           e.preventDefault();
           inputRef.current?.click();
         }
@@ -168,11 +165,7 @@ export function UploadZone({ onUploaded }: UploadZoneProps) {
             : "Drag & drop or click to browse"}
         </p>
 
-        {error && (
-          <p className="mt-3 max-w-xs text-sm text-red-400">
-            {error}
-          </p>
-        )}
+        {error && <p className="mt-3 max-w-xs text-sm text-red-400">{error}</p>}
       </div>
     </motion.div>
   );
